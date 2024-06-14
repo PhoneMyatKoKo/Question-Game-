@@ -5,6 +5,8 @@ app_name='question'
 
 urlpatterns=[
     path('',views.home,name='home'),
+    path('profile',views.profile,name='profile'),
+    path('signup',views.signup,name='signup'),
     path('login',views.login,name='login'),
     path('logout',views.Logout,name='logout'),
     path('start',views.index,name='index'),

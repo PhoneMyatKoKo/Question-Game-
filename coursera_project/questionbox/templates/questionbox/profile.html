@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user }}</title>
+</head>
+
+<body>
+    <h2> Welcome {{ user }}</h2>
+
+    <div class="container">
+        <div class="attempt">
+            <span>Numbers of Attempt:</span><span class="att">{{ attempt }}</span>
+
+        </div>
+        <div class="score-history">
+            Your Scores History
+            {% for s in score %}
+            {{ forloop.counter }}.{{ s }}
+            {% endfor %}
+        </div>
+        <div class="highest-score">
+            <h3>Your Highest Score</h3>
+            <p><b>{{ highest_score }}</b></p>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

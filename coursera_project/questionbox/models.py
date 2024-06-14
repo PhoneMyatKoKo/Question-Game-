@@ -26,12 +26,14 @@ class Answer(models.Model):
   
   
 class User(AbstractUser) :
-     attempt=models.IntegerField(verbose_name='Number of Attempts',null=True)
+     attempt=models.IntegerField(verbose_name='Number of Attempts',null=True,default=0)
        
 class ScoreBoard(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     score=models.IntegerField()
            
+    def __str__(self) -> str:
+        return '{}'.format(self.score)     
            
            
 # class Test(models.Model):

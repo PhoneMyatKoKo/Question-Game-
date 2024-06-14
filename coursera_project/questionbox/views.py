@@ -6,6 +6,7 @@ from django.contrib.auth import login as l
 from django.contrib.auth import authenticate,logout
 from django.contrib.auth.decorators import login_required
 from .models import *
+from .models import User as CUser
 from .forms import *
 import random
 
@@ -88,6 +89,12 @@ def check_result(request):
             score+=1
         else:
             wrong_questions.append(i+1)
+            
+     scoreboard=ScoreBoard(user_id=request.user.pk,score=score)  
+     scoreboard.save()
+     user=CUser.objects.get(pk=request.user.pk)
+     user.attempt+=1
+     user.save()      
 
  
      context={'choice':get_answers(choice_list),'answer':get_answers(ans_list),'score':score,'wrong':wrong_questions,'total':5}
@@ -148,7 +155,41 @@ def add_answer(request):
     context={'form':answer_form}
     return render(request,'questionbox/add_answer.html',context)
 
+def profile(request):
+    if request.user.is_authenticated:
+        user=CUser.objects.get(pk=request.user.pk)
+        attempt=user.attempt
+        score=user.scoreboard_set.all()
+        score_order=user.scoreboard_set.order_by()
+        highest_score=0
+        if score_order:
+            highest_score=score_order[len(score_order)-1]
+        context={'attempt':attempt,'score':score,'highest_score':highest_score}
+        return render(request,'questionbox/profile.html',context)
+        
+    else:
+        return HttpResponseRedirect(reverse('question:login'))    
+        
 
+def signup(request):
+    if request.method =='POST':
+        form=SignUpForm(request.POST)
+        if form.is_valid():
+            user=form.save()
+            l(request,user)
+            return HttpResponseRedirect(reverse('question:home'))
+        
+        else:
+            
+         context={'form':form}    
+         return render(request,'questionbox/signup.html',context)
+        
+    else:
+        form=SignUpForm()
+        context={'form':form}    
+        return render(request,'questionbox/signup.html',context)
+    
+    
 def login(request):
     if request.method=='GET':
         form=UserForm

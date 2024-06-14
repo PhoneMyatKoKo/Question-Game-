@@ -56,6 +56,7 @@
                 <input type="submit" value="Logout" class="button">
             </form>
         </span>
+        <a href="{% url 'question:profile' %}" class="button">Profile</a>
         {% else %}
         <a href="{% url 'question:login' %}" class="button">Log In</a>
         {% endif %}
