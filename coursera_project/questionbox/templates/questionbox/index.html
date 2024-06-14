@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <link rel="stylesheet" href="{% static 'questionbox/style.css' %}">
+</head>
+
+<body>
+    <h2 class="header">General Questions</h2>
+
+    <div class="form">
+        <form action="{% url 'question:result' %}" method="POST">
+            {% csrf_token %}
+            <ol>
+                {% for q in questions %}
+                <div class="question">
+                    <li>
+                        {{ q.question_text }}
+                        <ul>
+                            {% for choice in choices %}
+
+                            {% if choice.question_id_id == q.pk %}
+                            <input type="radio" name="choice{{ forloop.parentloop.counter }}" id=""
+                                value="{{ choice.id }}" class="radio">
+                            <span style="margin-right: 10px;">{{ choice.choice_text }}</span>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </div>
+
+                {% endfor %}
+
+
+            </ol>
+            <div class="btn">
+                <input type="submit" name="submit" id="" class="inbtn">
+            </div>
+
+
+
+        </form>
+    </div>
+    <h3>{{ select }}</h3>
+
+
+
+
+
+
+</body>
+
+</html>

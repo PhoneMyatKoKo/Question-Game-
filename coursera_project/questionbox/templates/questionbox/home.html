@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website</title>
+    <link rel="stylesheet" href="{% static 'questionbox/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    < class="container">
+        <h1>Welcome to the Quiz Website!</h1>
+        <p>Test your knowledge with our fun and challenging quizzes.</p>
+        <a href="{% url 'question:index' %}" class="button">Start Quiz</a>
+        {% if request.user.is_authenticated %}
+        <span>
+            <form action="{% url 'question:logout' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Logout" class="button">
+            </form>
+        </span>
+        {% else %}
+        <a href="{% url 'question:login' %}" class="button">Log In</a>
+        {% endif %}
+        </div>
+</body>
+
+</html>

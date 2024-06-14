@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <link rel="stylesheet" href="{% static 'questionbox/style.css' %}">
+</head>
+
+<body>
+
+    <h2 class="header">Result</h2>
+
+    <div class="choice">
+        <h2>Choices</h2>
+        {% for a in choice %}
+        <div class="ans-inner">{{ forloop.counter }} . {{ a.choice_text }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="ans">
+        <h2>Answers</h2>
+        {% for a in answer %}
+        <div class="ans-inner">{{ forloop.counter }} . {{ a.choice_text }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="score">
+        <h2>Score</h2>
+        <h3>{{ score }}/{{ total }}</h3>
+    </div>
+
+    <div class="wrong">
+        <h2>Wrong Questions</h2>
+        {% if wrong %}
+        {{ wrong }}
+        {% else %}
+        <h3>None</h3>
+        {% endif %}
+    </div>
+    <div class="btn">
+        <a href="{% url 'question:index' %}"><button class="inbtn">Try Again</button></a>
+    </div>
+
+    <div class="btn">
+        <a href="{% url 'question:home' %}"><button class="inbtn">Home</button></a>
+    </div>
+
+
+</body>
+
+</html>
