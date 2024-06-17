@@ -24,6 +24,9 @@
         <div class="highest-score">
             <h3>Your Highest Score</h3>
             <p><b>{{ highest_score }}</b></p>
+            <h2>User's Remote Ip:</h2><span>{{ ip }}</span>
+            <h4>Added Middleware :</h4><span>{{ middleware }}</span>
+            <h4>After View Middle:</h4><span>{% if afterM %} {{ afterM }} {% else %} No {% endif %}</span>
         </div>
     </div>
 

@@ -164,7 +164,7 @@ def profile(request):
         highest_score=0
         if score_order:
             highest_score=score_order[len(score_order)-1]
-        context={'attempt':attempt,'score':score,'highest_score':highest_score}
+        context={'attempt':attempt,'score':score,'highest_score':highest_score,'ip':request.META["REMOTE_ADDR"],'middleware':request.kk,}
         return render(request,'questionbox/profile.html',context)
         
     else:
