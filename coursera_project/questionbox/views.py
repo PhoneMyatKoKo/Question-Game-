@@ -160,7 +160,7 @@ def profile(request):
         user=CUser.objects.get(pk=request.user.pk)
         attempt=user.attempt
         score=user.scoreboard_set.all()
-        score_order=user.scoreboard_set.order_by()
+        score_order=user.scoreboard_set.order_by('score')
         highest_score=0
         if score_order:
             highest_score=score_order[len(score_order)-1]
